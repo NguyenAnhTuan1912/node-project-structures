@@ -5,13 +5,15 @@
 ## Structure
 Cấu trúc của dự án này sẽ bao gồm các folder gồm file `index.ts` để làm file export tổng theo cấu trúc module. Tuy nhiên thì cốt lõi của tính module là ở `modules`, nơi sẽ thực hiện các nhiệm vụ chính trong app, các modules này chứa các handlers và các handlers này sẽ phụ thuộc vào một số configurations khác trong app để thực hiện các hành động đó.
 
+Được xây dựng theo hướng khai báo trước -> tạo sau. Cho nên các `templates` đóng vai trò khá quan trọng trong project, nó làm gọn code, quản lý nhiều object hơn và đảm bảo được hướng xây dựng của cấu trúc (xem thêm trong templates/router_manager và templates/handler)
+
 __Chú thích__:
 - `classes`: folder này chứa một số class global, thường thì là những classes gây ảnh hưởng lên toàn app.
   - `MyServer`: tạo ra một object dùng để quản lý server, có một số thuộc tính, xem thêm trong file để biết thêm chi tiết.
   - `ServerBuilder`: tạo ra một object dùng để build server.
 - `db`: folder này dùng để chứa các configs của MongoDB. Với mỗi folder sẽ là một DB.
 - `templates`: folder này chứa các function dùng để tạo ra một số object khác trong app, nó dùng cho global.
-  - `router`: tạo ra một router, router này nhận vào các handlers để set-up API cho sau này.
+  - `router_manager`: tạo ra một router manager, manager này nhận vào các handlers để set-up API cho sau này.
   - `handler`: tạo ra một function dùng để xử lý các request từ client và response về cho client. Giúp tiết kiệm thời gian cho việc tạo handler api.
 - `modules`: folder này chứa các module để thực hiện yêu cầu từ client, cái này không cần phải giải thích thêm.
 - `services`: là các service từ bên ngoài, có thể kể đến như là google, cloudinary.
@@ -32,7 +34,7 @@ __Chú thích__:
     │   └── temp_b/
     │       └── index.ts
     ├── templates/
-    │   ├── router/
+    │   ├── router_manager/
     │   │   └── index.ts
     │   └── handler/
     │       └── index.ts

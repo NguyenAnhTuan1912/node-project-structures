@@ -1,4 +1,4 @@
-import { createRouter } from "templates/router";
+import { createRouterManager } from "templates/router_manager";
 
 // const GetPost = require("./getPost");
 // const CreatePost = require("./createPost");
@@ -6,47 +6,47 @@ import { createRouter } from "templates/router";
 // const UpdatePost = require("./updatePost");
 
 // const GetPosts = require("./getPosts");
-import GetPost from "./handlers/getPost";
-import CreatePost from "./handlers/createPost";
-import DeletePost from "./handlers/deletePost";
-import UpdatePost from "./handlers/updatePost";
-import GetPosts from "./handlers/getPosts";
+import GetPostHandler from "./handlers/getPostHandler";
+import CreatePostHandler from "./handlers/createPostHandler";
+import DeletePostHandler from "./handlers/deletePostHandler";
+import UpdatePostHandler from "./handlers/updatePostHandler";
+import GetPostsHandler from "./handlers/getPostsHandler";
 
 const base = {
   post: "/post",
   posts: "/posts"
 };
 
-const PostRouter = createRouter({
+const PostRouter = createRouterManager({
   handlers: [
     // GET
     {
-      path: base.post + GetPost.path,
+      path: base.post + GetPostHandler.path,
       method: "get",
-      fns: [GetPost.handler]
+      getHandler: GetPostHandler.getHandler
     },
     {
-      path: base.posts + GetPosts.path,
+      path: base.posts + GetPostsHandler.path,
       method: "get",
-      fns: [GetPosts.handler]
+      getHandler: GetPostsHandler.getHandler
     },
     // POST
     {
-      path: base.post + GetPosts.path,
+      path: base.post + GetPostsHandler.path,
       method: "post",
-      fns: [CreatePost.handler]
+      getHandler: CreatePostHandler.getHandler
     },
     // DELETE
     {
       path: base.post,
       method: "delete",
-      fns: [DeletePost.handler]
+      getHandler: DeletePostHandler.getHandler
     },
     // PUT
     {
       path: base.post,
       method: "put",
-      fns: [UpdatePost.handler]
+      getHandler: UpdatePostHandler.getHandler
     }
   ]
 });

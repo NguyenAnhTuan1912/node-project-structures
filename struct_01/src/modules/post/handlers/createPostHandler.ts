@@ -1,8 +1,8 @@
-import { createHander } from "templates/handler";
+import { createHandler } from "templates/handler";
 
-const CreatePost = {
-  path: "",
-  handler: createHander((dbs, utils) => {
+const CreatePostHandler = createHandler(
+  "",
+  (dbs, utils) => {
     return async function(req, res) {
       try {
         let body = req.body;
@@ -26,7 +26,7 @@ const CreatePost = {
         );
       }
     }
-  })
-};
+  }
+);
 
-export default CreatePost;
+export default CreatePostHandler;

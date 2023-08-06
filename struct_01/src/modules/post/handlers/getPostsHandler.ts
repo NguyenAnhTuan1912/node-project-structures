@@ -1,15 +1,8 @@
-import { createHander } from "templates/handler";
+import { createHandler } from "templates/handler";
 
-const GetPosts = {
-  path: "",
-  /**
-   * Get multiple posts with params:
-   * - limit: Number of posts that want to take.
-   * - skip: Number of posts that want to skip.
-   * @param {express.Request} res 
-   * @param {express.Response} req 
-   */
-  handler: createHander((dbs, utils) => {
+const GetPostsHandler = createHandler(
+  "",
+  (dbs, utils) => {
     return async function(req, res) {
     try {
       let query = req.query as { limit: string, skip: string };
@@ -34,7 +27,7 @@ const GetPosts = {
       );
     }
   }
-  })
-};
+  }
+);
 
-export default GetPosts;
+export default GetPostsHandler;

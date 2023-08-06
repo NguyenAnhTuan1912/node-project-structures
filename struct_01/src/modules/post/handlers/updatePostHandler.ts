@@ -1,8 +1,8 @@
-import { createHander } from "templates/handler";
+import { createHandler } from "templates/handler";
 
-const UpdatePost = {
-  path: "",
-  handler: createHander((dbs, utils) => {
+const UpdatePostHandler = createHandler(
+  "",
+  (dbs, utils) => {
     return async function(req, res) {
       try {
         let query = req.query;
@@ -26,7 +26,7 @@ const UpdatePost = {
         );
       }
     }
-  })
-};
+  }
+);
 
-export default UpdatePost;
+export default UpdatePostHandler;

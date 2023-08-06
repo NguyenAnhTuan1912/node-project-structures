@@ -3,11 +3,16 @@ import Temp_ADB from "db/temp_a";
 
 import utils from "utils";
 
+import { APIHandler } from "types";
+
+// Internal Types
 type A = typeof utils;
 interface Utils extends A {}
 interface DBs {
   Temp_ADB: Temp_ADB
 }
+
+type CreateHandlerCallBack = (DBs: DBs, utils: Utils) => (req: Request, res: Response) => Promise<any>
 
 /**
  * __Template__
@@ -16,12 +21,17 @@ interface DBs {
  * @param cb 
  * @returns 
  */
-export function createHander(
-  cb: (DBs: DBs, utils: Utils) => (req: Request, res: Response) => Promise<any>
-) {
-  const DBs = {
-    Temp_ADB: new Temp_ADB()
-  };
-
-  return cb(DBs, utils);
+export function createHandler(
+  path: string,
+  cb: CreateHandlerCallBack
+): APIHandler {
+  return {
+    path: path,
+    getHandler: function() {
+      const DBs = {
+        Temp_ADB: new Temp_ADB()
+      };
+      return cb(DBs, utils);
+    }
+  }
 }
