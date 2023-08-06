@@ -1,4 +1,4 @@
-import Utils from "utils";
+import { createHander } from "templates/handler";
 
 const GetPosts = {
   path: "",
@@ -9,7 +9,7 @@ const GetPosts = {
    * @param {express.Request} res 
    * @param {express.Response} req 
    */
-  handler: Utils.Handler.create((db) => {
+  handler: createHander((dbs, utils) => {
     return async function(req, res) {
     try {
       let query = req.query as { limit: string, skip: string };
@@ -19,18 +19,18 @@ const GetPosts = {
       // console.log("Limit ~ file modules/post/getPosts.js ~ line:19: ", limit);
       // console.log("Skip ~ file modules/post/getPosts.js ~ line:20: ", skip);
 
-      let result = await db.Post.findMultiple({ limit, skip });
+      let result = await dbs.Temp_ADB.Post.findMultiple({ limit, skip });
 
-      return Utils.RM.responseJSON(
+      return utils.RM.responseJSON(
         res,
         200,
-        Utils.RM.getResponseMessage(false, result, "Get posts successfully.")
+        utils.RM.getResponseMessage(false, result, "Get posts successfully.")
       );
     } catch (error: any) {
-      return Utils.RM.responseJSON(
+      return utils.RM.responseJSON(
         res,
         500,
-        Utils.RM.getResponseMessage(true, undefined, error.message)
+        utils.RM.getResponseMessage(true, undefined, error.message)
       );
     }
   }

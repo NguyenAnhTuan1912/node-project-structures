@@ -1,8 +1,8 @@
-import Utils from "utils";
+import { createHander } from "templates/handler";
 
 const UpdatePost = {
   path: "",
-  handler: Utils.Handler.create((db) => {
+  handler: createHander((dbs, utils) => {
     return async function(req, res) {
       try {
         let query = req.query;
@@ -11,18 +11,18 @@ const UpdatePost = {
         console.log("Req's Body ~ file updatePost.js ~ line:11: ", req.body);
         console.log("Req's Query ~ file updatePost.js ~ line:12: ", query);
   
-        let result = await db.Post.find(id);
-  
-        return Utils.RM.responseJSON(
+        let result = await dbs.Temp_ADB.Post.find(id);
+
+        return utils.RM.responseJSON(
           res,
           200,
-          Utils.RM.getResponseMessage(false, result, "Update post successfully.")
+          utils.RM.getResponseMessage(false, result, "Update post successfully.")
         );
       } catch (error: any) {
-        return Utils.RM.responseJSON(
+        return utils.RM.responseJSON(
           res,
           500,
-          Utils.RM.getResponseMessage(true, undefined, error.message)
+          utils.RM.getResponseMessage(true, undefined, error.message)
         );
       }
     }

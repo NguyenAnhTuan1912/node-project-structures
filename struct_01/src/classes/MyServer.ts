@@ -16,6 +16,7 @@ export default class MyServer {
 
   apis!: Array<{ base: string, router: Router }>;
   middleWares!: Array<any>;
+  dbConnections!: Array<Promise<boolean>>
 
   constructor(options: ServerOptions) {
     this.port = options.port;
@@ -26,38 +27,42 @@ export default class MyServer {
      */
     this.apis = [];
     this.middleWares = [];
+    this.dbConnections = [];
   }
 
   start() {
-    // Setup first API to greet new callers.
-    this.app.get("/", function(req, res) {
-      try {
-        return Utils.RM.responseJSON(
-          res,
-          200,
-          Utils.RM.getResponseMessage(false, undefined, "Welcome to Tunanguyen Server. You can have perfect experience in here.")
-        );
-      } catch (error: any) {
-        return Utils.RM.responseJSON(
-          res,
-          500,
-          Utils.RM.getResponseMessage(true, undefined, error.message)
-        );
+    // Connect to db first
+    Promise.all(this.dbConnections).then(() => {
+      // Setup first API to greet new callers.
+      this.app.get("/", function(req, res) {
+        try {
+          return Utils.RM.responseJSON(
+            res,
+            200,
+            Utils.RM.getResponseMessage(false, undefined, "Welcome to Tunanguyen Server. You can have perfect experience in here.")
+          );
+        } catch (error: any) {
+          return Utils.RM.responseJSON(
+            res,
+            500,
+            Utils.RM.getResponseMessage(true, undefined, error.message)
+          );
+        }
+      });
+
+      // Setup all middleware from middlewares.
+      for(let middleWare of this.middleWares) {
+        this.app.use(middleWare);
       }
+
+      // Setup all API from apis.
+      for(let api of this.apis) {
+        this.app.use(api.base, api.router);
+      }
+
+      if(this.apis.length === 0) console.warn("There aren't APIs in your server. Please add more APIs before start server.");
+
+      this.instance.listen(this.port, () => { console.log(`You're server is running on http://localhost:${this.port}`); });
     });
-
-    // Setup all middleware from middlewares.
-    for(let middleWare of this.middleWares) {
-      this.app.use(middleWare);
-    }
-
-    // Setup all API from apis.
-    for(let api of this.apis) {
-      this.app.use(api.base, api.router);
-    }
-
-    if(this.apis.length === 0) console.warn("There aren't APIs in your server. Please add more APIs before start server.");
-
-    this.instance.listen(this.port, () => { console.log(`You're server is running on http://localhost:${this.port}`); });
   }
 }

@@ -3,6 +3,22 @@
 Đây là cấu trúc module đầu tiên, các API Handlers được quản lý trong một cùng một module. Cấu trúc này áp dụng `Builder` và hơi có `Singleton` Pattern, tương lai có thể áp dụng thêm nhiều Pattern nữa.
 
 ## Structure
+Cấu trúc của dự án này sẽ bao gồm các folder gồm file `index.ts` để làm file export tổng theo cấu trúc module. Tuy nhiên thì cốt lõi của tính module là ở `modules`, nơi sẽ thực hiện các nhiệm vụ chính trong app, các modules này chứa các handlers và các handlers này sẽ phụ thuộc vào một số configurations khác trong app để thực hiện các hành động đó.
+
+__Chú thích__:
+- `classes`: folder này chứa một số class global, thường thì là những classes gây ảnh hưởng lên toàn app.
+  - `MyServer`: tạo ra một object dùng để quản lý server, có một số thuộc tính, xem thêm trong file để biết thêm chi tiết.
+  - `ServerBuilder`: tạo ra một object dùng để build server.
+- `db`: folder này dùng để chứa các configs của MongoDB. Với mỗi folder sẽ là một DB.
+- `templates`: folder này chứa các function dùng để tạo ra một số object khác trong app, nó dùng cho global.
+  - `router`: tạo ra một router, router này nhận vào các handlers để set-up API cho sau này.
+  - `handler`: tạo ra một function dùng để xử lý các request từ client và response về cho client. Giúp tiết kiệm thời gian cho việc tạo handler api.
+- `modules`: folder này chứa các module để thực hiện yêu cầu từ client, cái này không cần phải giải thích thêm.
+- `services`: là các service từ bên ngoài, có thể kể đến như là google, cloudinary.
+- `types`: chứa type trong project.
+- `utils`: các hàm helpers.
+- `index.ts`: file này dùng để set-up, config server và chạy!!!
+
 ### Without graphic
 ```
 .
@@ -11,12 +27,28 @@
     │   ├── MyServer.ts
     │   └── ServerBuilder.ts
     ├── db/
-    │   └── index.ts
+    │   ├── temp_a/
+    │   │   └── index.ts
+    │   └── temp_b/
+    │       └── index.ts
+    ├── templates/
+    │   ├── router/
+    │   │   └── index.ts
+    │   └── handler/
+    │       └── index.ts
     ├── modules/
     │   └── post/
-    │       ├── createPost.ts
-    │       ├── getPost.ts
+    │       ├── handlers/
+    │       │   ├── createPost.ts
+    │       │   └── getPost.ts
     │       └── index.ts
+    ├── services/
+    │   ├── cloudinary/
+    │   │   └── index.ts
+    │   └── google/
+    │       └── index.ts
+    ├── types/
+    │   └── index.ts
     ├── utils/
     │   └── index.ts
     ├── types/
@@ -41,4 +73,4 @@ Vẫn đang trong quá trình phát triển và tìm hiểu cấu trúc này, ch
 ### Cons
 Chưa tìm thấy.
 
-__NOTE__: sẽ còn được phát triển thêm.
+__NOTE__: sẽ còn được phát triển thêm. Và nên nhớ đây chỉ là template thôi, còn tuỳ thuộc vào dự án mà config thêm.

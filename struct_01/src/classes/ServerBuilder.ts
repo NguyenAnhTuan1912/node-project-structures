@@ -11,16 +11,28 @@ export default class ServerBuilder {
     this.server = options.server;
   }
 
+  /**
+   * Use to build middleWares.
+   * @param middleWare 
+   */
   buildMiddleWare(middleWare: any) {
     this.server.middleWares.push(middleWare);
   }
 
   /**
-   * 
+   * Use to build API in router object.
    * @param {string} base 
    * @param {epxress.Router} router 
    */
   buildAPI(base: string, router: Router) {
     this.server.apis.push({ base, router });
+  }
+
+  /**
+   * Use to build db connections.
+   * @param connection 
+   */
+  buildDBConnection(connection: Promise<boolean>) {
+    this.server.dbConnections.push(connection);
   }
 }

@@ -1,15 +1,20 @@
 import { Response, Request } from "express";
 
-import DB from "db";
-
 interface ResponseMessage {
   isError: boolean,
   data?: any
   message?: string
 }
 
-export default class Utils {
-  static RM = {
+const Utils = {
+  RM: {
+    /**
+     * Use to create a response message objects.
+     * @param isError Is error?
+     * @param data Data of response message.
+     * @param message Content of response message.
+     * @returns 
+     */
     getResponseMessage: function(isError = false, data: any, message: string) {
       return {
         isError,
@@ -18,12 +23,25 @@ export default class Utils {
       }
     },
   
+    /**
+     * Use `res` (Express Response Object) to response to client.
+     * @param res 
+     * @param status 
+     * @param responseMessage 
+     * @returns 
+     */
     responseJSON: function(res: Response, status: number, responseMessage: ResponseMessage) {
       return res.status(status).json(responseMessage);
     }
-  }
+  },
 
-  static Other = {
+  Other: {
+    /**
+     * Use to wait a action.
+     * @param cb 
+     * @param time 
+     * @returns 
+     */
     wait(cb: () => void, time = 1000) {
       return new Promise((r) => {
         setTimeout(() => {
@@ -32,15 +50,6 @@ export default class Utils {
       });
     }
   }
+};
 
-  static Handler = {
-    /**
-     * Use to create a handler.
-     * @param cb 
-     */
-    create(cb: (db: DB) => (req: Request, res: Response) => Promise<any>) {
-      const db = new DB();
-      return cb(db);
-    }
-  }
-}
+export default Utils;

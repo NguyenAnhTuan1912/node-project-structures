@@ -1,8 +1,8 @@
-import Utils from "utils";
+import { createHander } from "templates/handler";
 
 const CreatePost = {
   path: "",
-  handler: Utils.Handler.create((db) => {
+  handler: createHander((dbs, utils) => {
     return async function(req, res) {
       try {
         let body = req.body;
@@ -12,17 +12,17 @@ const CreatePost = {
           type: body.type,
           date: (new Date(body.date)).getTime()
         }
-  
-        return Utils.RM.responseJSON(
+        
+        return utils.RM.responseJSON(
           res,
           200,
-          Utils.RM.getResponseMessage(false, data, "Create post successfully.")
+          utils.RM.getResponseMessage(false, data, "Create post successfully.")
         );
       } catch (error: any) {
-        return Utils.RM.responseJSON(
+        return utils.RM.responseJSON(
           res,
           500,
-          Utils.RM.getResponseMessage(true, undefined, error.message)
+          utils.RM.getResponseMessage(true, undefined, error.message)
         );
       }
     }

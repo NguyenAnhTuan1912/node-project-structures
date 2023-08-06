@@ -1,4 +1,4 @@
-import Utils from "utils";
+import { createHander } from "templates/handler";
 
 // console.log("Utils ~ modules/post/getPost.js ~ line:3: ", Utils);
 
@@ -8,24 +8,24 @@ const GetPost = {
    * Get A post with params:
    * - id: Id of post.
    */
-  handler: Utils.Handler.create((db) => {
+  handler: createHander((dbs, utils) => {
     return async function(req, res) {
       try {
         let query = req.query;
         let id = query.id;
   
-        let result = await db.Post.find(id);
+        let result = await dbs.Temp_ADB.Post.find(id);
   
-        return Utils.RM.responseJSON(
+        return utils.RM.responseJSON(
           res,
           200,
-          Utils.RM.getResponseMessage(false, result, "Get post successfully.")
+          utils.RM.getResponseMessage(false, result, "Get post successfully.")
         );
       } catch (error: any) {
-        return Utils.RM.responseJSON(
+        return utils.RM.responseJSON(
           res,
           500,
-          Utils.RM.getResponseMessage(true, undefined, error.message)
+          utils.RM.getResponseMessage(true, undefined, error.message)
         );
       }
     }
