@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import MyServer from "./MyServer";
 
-import { RouterManager, ServerBuilderOptions } from "types";
+import { ServerBuilderOptions } from "types";
 
 export default class ServerBuilder {
   server!: MyServer
@@ -24,8 +24,8 @@ export default class ServerBuilder {
    * @param {string} base 
    * @param {epxress.Router} router 
    */
-  buildAPI(base: string, routerManager: RouterManager) {
-    this.server.apis.push({ base, routerManager });
+  buildAPI(base: string, router: Router) {
+    this.server.apis.push({ base, router });
   }
 
   /**

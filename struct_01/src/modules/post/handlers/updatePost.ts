@@ -10,7 +10,7 @@ const UpdatePostHandler = createHandler(
 
         console.log("Req's Body ~ file updatePost.js ~ line:11: ", req.body);
         console.log("Req's Query ~ file updatePost.js ~ line:12: ", query);
-  
+
         let result = await dbs.Temp_ADB.Post.find(id);
 
         return utils.RM.responseJSON(
@@ -27,6 +27,6 @@ const UpdatePostHandler = createHandler(
       }
     }
   }
-);
+)
 
 export default UpdatePostHandler;

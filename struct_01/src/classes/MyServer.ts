@@ -7,14 +7,14 @@ import express, { Express, Router } from "express";
 
 import Utils from "utils";
 
-import { RouterManager, ServerOptions } from "types";
+import { ServerOptions } from "types";
 
 export default class MyServer {
   port!: string;
   app!: Express;
   instance!: Server;
 
-  apis!: Array<{ base: string, routerManager: RouterManager }>;
+  apis!: Array<{ base: string, router: Router }>;
   middleWares!: Array<any>;
   dbConnections!: Array<Promise<boolean>>
 
@@ -54,8 +54,7 @@ export default class MyServer {
 
       // Setup all API from apis.
       for(let api of this.apis) {
-        api.routerManager.install();
-        this.app.use(api.base, api.routerManager.getRouter()!);
+        this.app.use(api.base, api.router);
       }
 
       if(this.apis.length === 0) console.warn("There aren't APIs in your server. Please add more APIs before start server.");

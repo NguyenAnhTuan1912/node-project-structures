@@ -1,4 +1,4 @@
-import { createRouterManager } from "templates/router_manager";
+import { createRouter } from "templates/router";
 
 // const GetPost = require("./getPost");
 // const CreatePost = require("./createPost");
@@ -6,47 +6,47 @@ import { createRouterManager } from "templates/router_manager";
 // const UpdatePost = require("./updatePost");
 
 // const GetPosts = require("./getPosts");
-import GetPostHandler from "./handlers/getPostHandler";
-import CreatePostHandler from "./handlers/createPostHandler";
-import DeletePostHandler from "./handlers/deletePostHandler";
-import UpdatePostHandler from "./handlers/updatePostHandler";
-import GetPostsHandler from "./handlers/getPostsHandler";
+import GetPostHandler from "./handlers/getPost";
+import CreatePostHandler from "./handlers/createPost";
+import DeletePostHandler from "./handlers/deletePost";
+import UpdatePostHandler from "./handlers/updatePost";
+import GetPostsHandler from "./handlers/getPosts";
 
 const base = {
   post: "/post",
   posts: "/posts"
 };
 
-const PostRouter = createRouterManager({
+const PostRouter = createRouter({
   handlers: [
     // GET
     {
       path: base.post + GetPostHandler.path,
       method: "get",
-      getHandler: GetPostHandler.getHandler
+      fns: [GetPostHandler.handler]
     },
     {
       path: base.posts + GetPostsHandler.path,
       method: "get",
-      getHandler: GetPostsHandler.getHandler
+      fns: [GetPostsHandler.handler]
     },
     // POST
     {
-      path: base.post + GetPostsHandler.path,
+      path: base.post + CreatePostHandler.path,
       method: "post",
-      getHandler: CreatePostHandler.getHandler
+      fns: [CreatePostHandler.handler]
     },
     // DELETE
     {
-      path: base.post,
+      path: base.post + DeletePostHandler.path,
       method: "delete",
-      getHandler: DeletePostHandler.getHandler
+      fns: [DeletePostHandler.handler]
     },
     // PUT
     {
-      path: base.post,
+      path: base.post + UpdatePostHandler.path,
       method: "put",
-      getHandler: UpdatePostHandler.getHandler
+      fns: [UpdatePostHandler.handler]
     }
   ]
 });

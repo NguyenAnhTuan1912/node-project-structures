@@ -1,6 +1,8 @@
 import { createHandler } from "templates/handler";
 
-const DeletePostHandler = createHandler(
+// console.log("Utils ~ modules/post/getPost.js ~ line:3: ", Utils);
+
+const GetPostHandler = createHandler(
   "",
   (dbs, utils) => {
     return async function(req, res) {
@@ -8,15 +10,12 @@ const DeletePostHandler = createHandler(
         let query = req.query;
         let id = query.id;
 
-        console.log("Req's Body ~ file deletePost.js ~ line:11: ", req.body);
-        console.log("Req's Query ~ file deletePost.js ~ line:12: ", query);
-  
         let result = await dbs.Temp_ADB.Post.find(id);
-  
+
         return utils.RM.responseJSON(
           res,
           200,
-          utils.RM.getResponseMessage(false, result, "Delete post successfully.")
+          utils.RM.getResponseMessage(false, result, "Get post successfully.")
         );
       } catch (error: any) {
         return utils.RM.responseJSON(
@@ -26,7 +25,7 @@ const DeletePostHandler = createHandler(
         );
       }
     }
-  }
+}
 );
 
-export default DeletePostHandler;
+export default GetPostHandler;
