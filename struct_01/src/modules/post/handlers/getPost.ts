@@ -4,24 +4,24 @@ import { createHandler } from "templates/handler";
 
 const GetPostHandler = createHandler(
   "",
-  (dbs, utils) => {
+  ({ DBs, Utils }) => {
     return async function(req, res) {
       try {
         let query = req.query;
         let id = query.id;
 
-        let result = await dbs.Temp_ADB.Post.find(id);
+        let result = await DBs.Temp_ADB.Post.find(id);
 
-        return utils.RM.responseJSON(
+        return Utils.RM.responseJSON(
           res,
           200,
-          utils.RM.getResponseMessage(false, result, "Get post successfully.")
+          Utils.RM.getResponseMessage(false, result, "Get post successfully.")
         );
       } catch (error: any) {
-        return utils.RM.responseJSON(
+        return Utils.RM.responseJSON(
           res,
           500,
-          utils.RM.getResponseMessage(true, undefined, error.message)
+          Utils.RM.getResponseMessage(true, undefined, error.message)
         );
       }
     }

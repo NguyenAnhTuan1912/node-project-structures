@@ -2,7 +2,7 @@ import { createHandler } from "templates/handler";
 
 const CreatePostHandler = createHandler(
   "",
-  (dbs, utils) => {
+  ({ DBs, Utils }) => {
     return async function(req, res) {
       try {
         let body = req.body;
@@ -13,16 +13,16 @@ const CreatePostHandler = createHandler(
           date: (new Date(body.date)).getTime()
         }
         
-        return utils.RM.responseJSON(
+        return Utils.RM.responseJSON(
           res,
           200,
-          utils.RM.getResponseMessage(false, data, "Create post successfully.")
+          Utils.RM.getResponseMessage(false, data, "Create post successfully.")
         );
       } catch (error: any) {
-        return utils.RM.responseJSON(
+        return Utils.RM.responseJSON(
           res,
           500,
-          utils.RM.getResponseMessage(true, undefined, error.message)
+          Utils.RM.getResponseMessage(true, undefined, error.message)
         );
       }
     }

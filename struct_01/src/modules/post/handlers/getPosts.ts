@@ -2,7 +2,7 @@ import { createHandler } from "templates/handler";
 
 const GetPostsHandler = createHandler(
   "",
-  (dbs, utils) => {
+  ({ DBs, Utils }) => {
     return async function(req, res) {
       try {
         let query = req.query as { limit: string, skip: string };
@@ -12,18 +12,18 @@ const GetPostsHandler = createHandler(
         // console.log("Limit ~ file modules/post/getPosts.js ~ line:19: ", limit);
         // console.log("Skip ~ file modules/post/getPosts.js ~ line:20: ", skip);
 
-        let result = await dbs.Temp_ADB.Post.findMultiple({ limit, skip });
+        let result = await DBs.Temp_ADB.Post.findMultiple({ limit, skip });
 
-        return utils.RM.responseJSON(
+        return Utils.RM.responseJSON(
           res,
           200,
-          utils.RM.getResponseMessage(false, result, "Get posts successfully.")
+          Utils.RM.getResponseMessage(false, result, "Get posts successfully.")
         );
       } catch (error: any) {
-        return utils.RM.responseJSON(
+        return Utils.RM.responseJSON(
           res,
           500,
-          utils.RM.getResponseMessage(true, undefined, error.message)
+          Utils.RM.getResponseMessage(true, undefined, error.message)
         );
       }
     }

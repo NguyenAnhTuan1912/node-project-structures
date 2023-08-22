@@ -2,6 +2,9 @@
 
 Đây là cấu trúc module đầu tiên, các API Handlers được quản lý trong một cùng một module. Cấu trúc này áp dụng `Builder` và hơi có `Singleton` Pattern, tương lai có thể áp dụng thêm nhiều Pattern nữa.
 
+## Note
+Phần cốt lõi của cấu trúc này là nằm ở chỗ nó sẽ tập chung tất cả lại thành một. Có thể thấy rõ trong `templates`, `classes/MyServer`.
+
 ## Structure
 Cấu trúc của dự án này sẽ bao gồm các folder gồm file `index.ts` để làm file export tổng theo cấu trúc module. Tuy nhiên thì cốt lõi của tính module là ở `modules`, nơi sẽ thực hiện các nhiệm vụ chính trong app, các modules này chứa các handlers và các handlers này sẽ phụ thuộc vào một số configurations khác trong app để thực hiện các hành động đó.
 

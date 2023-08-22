@@ -30,6 +30,16 @@ export default class MyServer {
   start() {
     // Connect to db first
     Promise.all(this.dbConnections).then(() => {
+      // Setup all middleware from middlewares.
+      for(let middleWare of this.middleWares) {
+        this.app.use(middleWare);
+      }
+
+      // Setup all API from apis.
+      for(let api of this.apis) {
+        this.app.use(api.base, api.router);
+      }
+
       // Setup first API to greet new callers.
       this.app.get("/", function(req, res) {
         try {
@@ -46,16 +56,6 @@ export default class MyServer {
           );
         }
       });
-
-      // Setup all middleware from middlewares.
-      for(let middleWare of this.middleWares) {
-        this.app.use(middleWare);
-      }
-
-      // Setup all API from apis.
-      for(let api of this.apis) {
-        this.app.use(api.base, api.router);
-      }
 
       if(this.apis.length === 0) console.warn("There aren't APIs in your server. Please add more APIs before start server.");
 
