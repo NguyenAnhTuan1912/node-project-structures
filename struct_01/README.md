@@ -3,7 +3,8 @@
 Đây là cấu trúc module đầu tiên, các API Handlers được quản lý trong một cùng một module. Cấu trúc này áp dụng `Builder` và hơi có `Singleton` Pattern, tương lai có thể áp dụng thêm nhiều Pattern nữa.
 
 ## Note
-Phần cốt lõi của cấu trúc này là nằm ở chỗ nó sẽ tập chung tất cả lại thành một. Có thể thấy rõ trong `templates`, `classes/MyServer`.
+- Phần cốt lõi của cấu trúc này là nằm ở chỗ nó sẽ tập chung tất cả lại thành một và cài đặt code. Có thể thấy rõ trong `templates`, `classes/MyServer`.
+- Cấu trúc thư mục sẽ khác với cấu trúc hệ thống (Kiến trúc hệ thống).
 
 ## Structure
 Cấu trúc của dự án này sẽ bao gồm các folder gồm file `index.ts` để làm file export tổng theo cấu trúc module. Tuy nhiên thì cốt lõi của tính module là ở `modules`, nơi sẽ thực hiện các nhiệm vụ chính trong app, các modules này chứa các handlers và các handlers này sẽ phụ thuộc vào một số configurations khác trong app để thực hiện các hành động đó.
@@ -22,7 +23,7 @@ __Chú thích__:
 - `utils`: các hàm helpers.
 - `index.ts`: file này dùng để set-up, config server và chạy!!!
 
-### Without graphic
+### Folder Structure
 ```
 .
 └── src/
@@ -31,8 +32,10 @@ __Chú thích__:
     │   └── ServerBuilder.ts
     ├── db/
     │   ├── temp_a/
+    │   │   ├── models
     │   │   └── index.ts
     │   └── temp_b/
+    │       ├── models
     │       └── index.ts
     ├── templates/
     │   ├── router/
@@ -53,18 +56,44 @@ __Chú thích__:
     ├── types/
     │   └── index.ts
     ├── utils/
+    │   ├── string.ts
+    │   ├── number.ts
+    │   ├── security.ts
     │   └── index.ts
     ├── types/
     │   └── index.ts
     └── index.ts
 ```
 
-### With graphic
-![image](https://github.com/NguyenAnhTuan1912/node-project-structures/assets/86825061/19f1785a-3a2a-4408-a509-916748e2b7ce)
+### System Architecture*
+![image](https://github.com/NguyenAnhTuan1912/node-project-structures/assets/86825061/c752cbe6-ace9-4a13-ba51-212b4a6beec8)
 
-__Giải thích__: Module dựa vào `Utils` (hầu hết chỗ nào cũng phụ thuộc bởi vì nó là các helper functions) và `DB Manager` (db) để hoạt động, tuy nhiên thì tụi này cũng sẽ dễ dàng được tháo bỏ ra, hiện tại thì vai trò của `DB Manager` là lấy dữ liệu lên cho các handlers trong module xử lý và trả về dữ liệu.
+Như đã nói thì cấu trúc được thiết kế theo dạng tập trung. Các công việc mà mình cần xử lý riêng như là lấy dữ liệu từ trong cơ sở dữ liệu; sử dụng api/dữ liệu từ các services khác; và các function hỗ trợ sẽ được tập trung lại trong `template`. `MyServer` sẽ chịu trách nhiệm thực thi các cài đặt được set từ `ServerBuilder` như là middlewares, routers... Cuối cùng là các global middlewares, routers, MyServer, ServerBuilder được import vào trong `src/index.ts` để setup cho server. Kiến trúc của nó chỉ đơn giản như vậy thôi.
 
-Tuy nhiên thì trong tương lai thì phần này sẽ trở nên độc lập hơn nữa, có nghĩa là `DB Manager` chỉ còn đóng vai trò là quản lý và cấu hình thôi (giống với `MyServer` và `ServerBuilder`) dẫn đến việc là vai trò của nó sẽ trừu tượng hơn, còn về cấu trúc của data, các hành vi lên data như thế nào thì các module này sẽ đóng vai trò chính.
+Kiến trúc được thiết kết trừu tượng, nhưng phải đảm bảo export các đối tượng sau:
+- Router: đã được setup từ các handlers, các handlers này được cài đặt cụ thể và dùng Utils, Databases, Services để hỗ trợ.
+- Global Middlewares: các middlewares toàn cục (không bắt buộc, tuy nhiên một số thì buộc phải có).
+- Server Manager: bao gồm chính nó (ở đây là MyServer) và một Builder cho server.
+
+### Code Installation*
+Project dùng OOP (khoảng 40%, nhưng tương lai sẽ ráng update lên 100%) làm kim chỉ nam cho việc cài đặt code. Và việc cài đặt code là phần quan trọng trong project-template này.
+
+#### Server and Server Builder
+Server là một object chứa instance của:
+- express (`app`), http-server (`instance`): Để setup và khởi động server.
+- `dbConnections`: là các kết nối tới DB, cụ thể là mongoDB. (Chưa test với các loại db khác nhau).
+- `apis`: là các routes từ các Routers.
+- `middlewares`: là tất cả các middle-wares.
+
+Ở đây thì mình sẽ dùng Server Builder để thêm các `apis`, `middlewares` và `dbConnections` để cho server cài đặt sau, sau khi đã kết nối được tới DBs trong `dbConnections`.
+
+#### Database
+Ở đây dùng chủ yếu là MongoDB. Được chia thành các database khác nhau, trong mỗi DB này sẽ có các model (là các collection). Mỗi collection này là một class, chứa schema và các method dùng để giao tiếp với DB đó. Các DB này là rời rạc và được import vào `src/index.ts` để config.
+
+#### Modules
+Sẽ bao gồm `handler` và `router`. Các handlers sẽ được tập trung lại và cài đặt vào trong Router, và export Router này để config trong `src/index.ts`. Tại đây các handlers và routers sẽ dùng các function trong templates để tạo.
+
+Ok đó là phần cài đặt code, xem trong `src` để dễ hiểu hơn.
 
 ## Pros and Cons
 Vẫn đang trong quá trình phát triển và tìm hiểu cấu trúc này, cho nên là vẫn chưa nhận thấy nhiều điểm tiện/bất tiện.
@@ -72,8 +101,9 @@ Vẫn đang trong quá trình phát triển và tìm hiểu cấu trúc này, ch
 - Dễ quản lý hơn.
 - Độ sâu của source thấp.
 - Dễ mở rộng, bảo trì.
+- Dễ theo dõi source hơn. Ví dụ như thêm model mới trong mongodb hay thêm service mới thì mình có thể biết được service đó được thêm trong `services` và service này có được dùng hay không ở trong `template/handler`.
 
 ### Cons
-Chưa tìm thấy.
+- Vẫn còn hạn chế về mặt cài đặt code.
 
 __NOTE__: sẽ còn được phát triển thêm. Và nên nhớ đây chỉ là template thôi, còn tuỳ thuộc vào dự án mà config thêm.
