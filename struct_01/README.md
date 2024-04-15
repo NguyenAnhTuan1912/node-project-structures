@@ -1,4 +1,4 @@
-# Modules Structure 001
+# Modular Structure 001
 
 Đây là cấu trúc module đầu tiên, các API Handlers được quản lý trong một cùng một module. Cấu trúc này áp dụng `Builder` và hơi có `Singleton` Pattern, tương lai có thể áp dụng thêm nhiều Pattern nữa.
 
@@ -98,12 +98,11 @@ Ok đó là phần cài đặt code, xem trong `src` để dễ hiểu hơn.
 ## Pros and Cons
 Vẫn đang trong quá trình phát triển và tìm hiểu cấu trúc này, cho nên là vẫn chưa nhận thấy nhiều điểm tiện/bất tiện.
 ### Props
-- Dễ quản lý hơn.
-- Độ sâu của source thấp.
-- Dễ mở rộng, bảo trì.
-- Dễ theo dõi source hơn. Ví dụ như thêm model mới trong mongodb hay thêm service mới thì mình có thể biết được service đó được thêm trong `services` và service này có được dùng hay không ở trong `template/handler`.
+- Dễ quản lý.
+- Dễ theo dõi source. Ví dụ như thêm model mới trong mongodb hay thêm service mới thì mình có thể biết được service đó được thêm trong `services` và service này có được dùng hay không ở trong `template/handler`.
 
 ### Cons
 - Vẫn còn hạn chế về mặt cài đặt code.
+- Cài các handlers, modules vẫn còn rất rối rắm.
 
 __NOTE__: sẽ còn được phát triển thêm. Và nên nhớ đây chỉ là template thôi, còn tuỳ thuộc vào dự án mà config thêm.
