@@ -4,4 +4,5 @@ Repository này dùng để lưu các project structures của các dự án Nod
 
 ## Structures
 Hiện tại thì đang có
-- [Structure NO.1](/struct_01)
+- [Modular structure NO.1](/struct_01)
+- [Modular structure NO.2](/struct_02)
