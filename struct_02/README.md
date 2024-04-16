@@ -63,7 +63,7 @@ __Chú thích__:
 ```
 
 ### System Architecture*
-![image](https://github.com/NguyenAnhTuan1912/node-project-structures/assets/86825061/bd22a26f-dec6-42b9-9dfe-933a9473d1f6)
+![image](https://github.com/NguyenAnhTuan1912/node-project-structures/assets/86825061/2e8fe599-e80e-4f63-a01c-a6d7670f705c)
 
 Khác với `Modules 001`, thì `Modules 002` sẽ dùng OOP hầu hết (hoặc hoàn toàn) để phát triển ứng dụng. Đồng thời giảm bớt các layer setup (đại loại là nó là một function nhận các tham số, sau đó là trả về kết quả. Ví dụ như các `templates`), để cho quá trình bảo trì dễ dàng hơn, tránh làm rối mã nguồn. Các components trong `Modules 002` này nó rõ ràng hơn, đồng thời mỗi component đều có một instance đại diện cho nó.
 
