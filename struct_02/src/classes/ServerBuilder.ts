@@ -25,10 +25,15 @@ export class ServerBuilder {
 
   async buildModules(modules: Array<Module>) {
     this.__isModulesBuilt = true;
+    let that = this;
+    modules.forEach(function(module) {
+      module.buildEndPoints(that.__server.app);
+    });
   }
 
-  async buildMiddlewares(middleWares: []) {
+  async buildGlobalMiddlewares(middleWares: Array<any>) {
     this.__isMiddlewaresBuilt = true;
+    this.__server.app.use(middleWares);
   }
 
   async buildDatabases(databases: Databases) {
