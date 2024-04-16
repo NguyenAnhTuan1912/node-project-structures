@@ -3,7 +3,7 @@
  */
 
 // Import types
-import { IDatabase } from "src/types/databases.types";
+import { IDatabase } from "src/types/database.types";
 
 export class Database implements IDatabase {
   async connect(): Promise<void> {};

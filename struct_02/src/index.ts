@@ -1,3 +1,6 @@
+import bodyParser, { json, urlencoded } from "body-parser";
+import cors from "cors";
+
 import { MyServer } from "./classes/MyServer";
 import { ServerBuilder } from "./classes/ServerBuilder";
 
@@ -8,25 +11,37 @@ import { AppSettings } from "./settings";
 import { Databases } from "./databases";
 // Import Services
 import { Services } from "./services";
+// Import Middlewares
+import { Middlewares } from "./middlewares";
+// Import Utils
+import { Utils } from "./utils";
 // Import Modules
 import { ExampleModule } from "./modules/example.module";
 
 // Run app
 (async function() {
+  const db = new Databases();
+  const sv = new Services();
+  const utils = new Utils();
+  const middlewares = new Middlewares(utils);
+
   const serverSettings = {
     port: AppSettings.PORT
   };
 
-  const myServer = new MyServer(serverSettings);
+  const myServer = new MyServer(utils, serverSettings);
   const builder = new ServerBuilder(myServer);
-
-  const db = new Databases();
-  const sv = new Services();
-
-  const example = new ExampleModule(db, sv);
+  const example = new ExampleModule(db, sv, utils, middlewares);
 
   // Build databases
   builder.buildDatabases(db);
+
+  // Build global middlewares
+  builder.buildGlobalMiddlewares([
+    cors({ origin: "*" }),
+    json(),
+    urlencoded({ extended: true })
+  ]);
 
   // Build modules
   builder.buildModules([example]);
