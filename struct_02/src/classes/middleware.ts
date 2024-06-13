@@ -1,12 +1,22 @@
-import type { Utils } from "src/utils";
+import { Base } from "./Base";
 
-export class Middleware {
-  utils!: Utils;
+// Import types
+import type { Databases } from "src/databases";
+import type { Services } from "src/services";
 
-  constructor(utils: Utils) {
-    this.utils = utils;
+/**
+ * A base class of middleware
+ */
+export class Middleware extends Base {
+  dbs!: Databases;
+  serv!: Services;
 
-    this.utils.Object.bindClassInstance(this);
+  constructor(dbs: Databases, serv: Services) {
+    super();
+    this.dbs = dbs;
+    this.serv = serv;
+
+    this.utils.object.bindClassInstance(this);
   }
 
   get [Symbol.toStringTag]() {
