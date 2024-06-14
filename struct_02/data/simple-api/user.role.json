@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "6634e7a4d109ce24a8dbd7a5"
+  },
+  "name": "user",
+  "rights": "read",
+  "resources": [
+    "book",
+    "author",
+    "book_type"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6634e7b2d109ce24a8dbd7a6"
+  },
+  "name": "guest",
+  "rights": "read",
+  "resources": [
+    "book"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6634e7e8d109ce24a8dbd7a7"
+  },
+  "name": "editor",
+  "rights": "read;write;update",
+  "resources": [
+    "book",
+    "author",
+    "type"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6634e7f0d109ce24a8dbd7a8"
+  },
+  "name": "admin",
+  "rights": "full",
+  "resources": [
+    "book",
+    "author",
+    "type",
+    "user",
+    "role"
+  ]
+}]

@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "ebbcd3f3-da1a-41c6-9945-f25928f9939a",
+		"name": "Simple API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "22750474"
+	},
+	"item": [
+		{
+			"name": "Get Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7500/books"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7500/books/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7500",
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6630b0f4ce39868ed55c0d8f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Authors",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "323ef169f41547d270abd3fe9035d44ce5e33c9cdc0204cc9515e0cbc81e43eb841625b69e2c6de940e96c5fe131ae3f01992343115861ac2694f06699c6e77f6644150c556f666540e450b915d76277"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7500/books/authors"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Types",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "323ef169f41547d270abd3fe9035d44ce5e33c9cdc0204cc9515e0cbc81e43eb841625b69e2c6de940e96c5fe131ae3f01992343115861ac2694f06699c6e77f6644150c556f666540e450b915d76277"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7500/books/types"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Type by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7500/books/types/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7500",
+					"path": [
+						"books",
+						"types",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Author by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "323ef169f41547d270abd3fe9035d44cc75aabdf00b4f15581cd6a59064ebfe13070b495c6fee81a0dc32f3086460d989f8514e4d02678f3df39cc27ae04ce3c542d696c479c5479b1d01173c4ba6134"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7500/books/authors/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7500",
+					"path": [
+						"books",
+						"authors",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "66321dfd9429a2bb5b0b909a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7500/courses"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Teachers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7500/courses/teachers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Course by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7500/courses/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7500",
+					"path": [
+						"courses",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Teacher by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7500/courses/teachers/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7500",
+					"path": [
+						"courses",
+						"teachers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7500/auth/token/user"
+			},
+			"response": []
+		}
+	]
+}

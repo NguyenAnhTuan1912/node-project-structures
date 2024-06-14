@@ -22,8 +22,8 @@ Trong template phát triển BE này thì có một số thứ được cài m�
 ```
 npm run install
 ```
-4. Import dữ liệu mẫu
-> Import các file dữ liệu mẫu theo từng loại cơ sở dữ liệu.
+4. Chạy script và import dữ liệu mẫu
+> Import các file dữ liệu mẫu theo từng loại cơ sở dữ liệu. Với MySQL thì vào trong thư mục `sql` có script tên là `initialize.sql`, chạy tất cả script đó với mysql shell hoặc là MySQL Workbench. Còn với MongoDB thì vào trong thưc mục `data` có các file json, import các file đó vào trong mongo comppass là ok, và nhớ là phải đặt tên các `database`, `table` hoặc `collection` giống trong file `settings.ts` hoặc là file đó chỉnh lại cho giống với tên của các objects mà các bạn đặt.
 5. Khởi động dự án
 ```
 npm run dev
