@@ -40,7 +40,12 @@ export class Module extends Base {
     let [method, name] = handlerName.split("::") as [HTTPMethods, string];
 
     if(!this.utils.http.isValidHTTPMethod(method) || !Boolean(app[method])) {
-      console.log(`  Endpoint - ${name} - has invalid http method`);
+      console.log(
+        " ",
+        this.utils.logger.red("Endpoint - "),
+        name,
+        this.utils.logger.red(" - has invalid method")
+      );
       return;
     }
 
@@ -48,7 +53,13 @@ export class Module extends Base {
     let path = this.base + name;
 
     app[method](path, hander);
-    console.log(`  Endpoint - ${path}, method: ${method} - Done`);
+    console.log(
+      " Endpoint - ",
+      this.utils.logger.yellow(path),
+      ", method: ",
+      this.utils.logger.blue(method.toUpperCase()),
+      "- Done."
+    );
   }
 
   private __buildHandler(app: Express, name: string) {
@@ -97,10 +108,13 @@ export class Module extends Base {
    */
   buildEndPoints(app: Express) {
     let controllerNames = Object.keys(this.controllers);
-    console.log("In module: ExampleModule, endpoints are being built...");
-    
     for(const controllerName of controllerNames) {
-      console.log(`Status - ${controllerName} - Building...`);
+      console.log(
+        this.utils.logger.magenta("Controller"),
+        "-",
+        controllerName,
+        " - Building..."
+      );
 
       // "Without middlewares" handlers
       this.__buildHandler(app, controllerName);
@@ -108,7 +122,13 @@ export class Module extends Base {
       // "With middlewares" handlers
       this.__buildHandlerWithMiddlewares(app, controllerName);
 
-      console.log(`Status - ${controllerName} - Done`);
+      console.log(
+        this.utils.logger.magenta("Controller"),
+        "-",
+        controllerName,
+        " - ",
+        this.utils.logger.green("Done")
+      );
     }
   }
 

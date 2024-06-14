@@ -52,9 +52,9 @@ export class MySQLDatabase extends Database<MySQL_Instances, MySQLUtils> {
       let dbNames = Object.keys(this.instances);
 
       for(let dbName of dbNames) {
-        console.log(`  ${dbName} DB - status: connecting`);
+        console.log(`  ${dbName} DB - status:`, this.utils.logger.yellow("connecting..."));
         await this.instances[dbName as keyof typeof this.instances].promise().connect();
-        console.log(`  ${dbName} DB - status: connected`);
+        console.log(`  ${dbName} DB - status:`, this.utils.logger.green("connected"));
       }
 
     } catch (error: any) {
