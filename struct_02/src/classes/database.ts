@@ -43,7 +43,7 @@ export class Model<D, T> extends Base {
     this.name = name;
   }
 
-  async validateDataAsync(data: T) {
+  protected async validateDataAsync(data: T) {
     return this.schema.validateAsync(data);
   }
 
@@ -53,7 +53,7 @@ export class Model<D, T> extends Base {
     return collection;
   }
 
-  getFields() {
+  protected getFields() {
     return Object.keys(this.schema.describe().keys);
   }
 

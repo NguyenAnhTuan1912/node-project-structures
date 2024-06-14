@@ -67,11 +67,10 @@ export const AppSettings = {
        * THIS PROPERTY MUST BE THE SAME IN VARIOUS TYPE OF DATABASE FOR CONSISTANCE
        */
       DB: {
-        NAME: "test",
+        NAME: "TUNA_TEST",
         OBJECTS: {
-          BOOK: "book",
-          TYPE: "type",
-          AUTHOR: "author"
+          COURSES: "COURSES",
+          TEACHERS: "TEACHERS"
         }
       }
     }

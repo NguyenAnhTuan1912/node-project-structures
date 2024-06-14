@@ -13,9 +13,11 @@ import { Databases } from "./databases";
 import { Services } from "./services";
 // Import Middlewares
 import { Middlewares } from "./middlewares";
+
 // Import Modules
 import { BookModule } from "./modules/book.module";
 import { AuthModule } from "./modules/auth.module";
+import { CourseModule } from "./modules/course.module";
 
 // Run app
 (async function() {
@@ -31,6 +33,7 @@ import { AuthModule } from "./modules/auth.module";
   const builder = new ServerBuilder(myServer);
 
   const book = new BookModule(dbs, serv, middlewares);
+  const course = new CourseModule(dbs, serv, middlewares);
   const auth = new AuthModule(dbs, serv, middlewares);
 
   // Build databases
@@ -44,7 +47,7 @@ import { AuthModule } from "./modules/auth.module";
   ]);
 
   // Build modules
-  await builder.buildModules([book, auth]);
+  await builder.buildModules([auth, book, course]);
 
   if(!builder.canStartup())
     throw new Error("Server can be started up now. Please make sure databases are connected, modules and middlewares are set up");

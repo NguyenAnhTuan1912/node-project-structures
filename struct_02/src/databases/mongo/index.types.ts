@@ -2,6 +2,8 @@
 /// DEFINE DATA STRUCTURE OF OBJECT
 ///
 import type { Db } from "mongodb";
+import type { BaseMultipleQuery, BaseParams } from "../index.types";
+
 export type MongoDB = Db;
 
 export type Mongo_ExampleModelData = {
@@ -84,10 +86,7 @@ type Mongo_BaseQuery = {
   fields?: string;
 }
 
-type Mongo_BaseMultipleQuery = {
-  limit?: string;
-  skip?: string;
-} & Mongo_BaseQuery;
+type Mongo_BaseMultipleQuery = BaseMultipleQuery & Mongo_BaseQuery;
 
 /// FOR BOOK
 export type Mongo_BooksQuery = {
@@ -97,9 +96,7 @@ export type Mongo_BooksQuery = {
 
 export type Mongo_BookQuery = Mongo_BaseQuery;
 
-export type Mongo_BookParams = {
-  id: string;
-}
+export type Mongo_BookParams = BaseParams;
 
 /// FOR BOOK'S AUTHOR
 export type Mongo_BookAuthorsQuery = {
@@ -108,9 +105,7 @@ export type Mongo_BookAuthorsQuery = {
 
 export type Mongo_BookAuthorQuery = Mongo_BaseQuery;
 
-export type Mongo_BookAuthorParams = {
-  id: string;
-}
+export type Mongo_BookAuthorParams = BaseParams;
 
 /// FOR BOOK'S TYPE
 export type Mongo_BookTypesQuery = {
@@ -119,6 +114,4 @@ export type Mongo_BookTypesQuery = {
 
 export type Mongo_BookTypeQuery = Mongo_BaseQuery;
 
-export type Mongo_BookTypeParams = {
-  id: string;
-}
+export type Mongo_BookTypeParams = BaseParams;

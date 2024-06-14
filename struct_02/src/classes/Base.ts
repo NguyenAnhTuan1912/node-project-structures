@@ -19,7 +19,7 @@ export class Base {
    * @param fn 
    * @returns 
    */
-  async handleResponseError<T, C>(
+  protected async handleResponseError<T, C>(
     ctx: C,
     res: Response,
     fn: (this: C, result: HTTPResponse<T>) => Promise<HTTPResponse<T>>
@@ -32,7 +32,7 @@ export class Base {
       let code = result.code === 200 ? 500 : result.code;
       result = this.utils.http.generateHTTPResponse<T>(code, undefined, error.message);
     } finally {
-      return res.status(result.error ? result.code : result.code).json(result);
+      return res.status(result.code).json(result);
     }
   }
 
@@ -43,7 +43,7 @@ export class Base {
    * @param fn 
    * @returns 
    */
-  async handleInterchangeError<T, C>(
+  protected async handleInterchangeError<T, C>(
     ctx: C,
     fn: (this: C, result: Interchange<T>) => Promise<Interchange<T>> | Interchange<T>
   ) {

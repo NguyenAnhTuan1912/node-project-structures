@@ -1,16 +1,16 @@
 import { Base } from "src/classes/Base";
 
 import { MongoDatabase } from "./mongo";
-
-// Import types
-import type { Utils } from "src/utils";
+import { MySQLDatabase } from "./mysql";
 
 export class Databases extends Base {
   mongo!: MongoDatabase;
+  mysql!: MySQLDatabase;
 
   constructor() {
     super();
     this.mongo = new MongoDatabase();
+    this.mysql = new MySQLDatabase();
   }
 
   async connect() {
@@ -19,6 +19,7 @@ export class Databases extends Base {
     console.log("Mongo - status: connected");
 
     console.log("MySQL - status: connecting");
+    await this.mysql.connect();
     console.log("MySQL - status: connected");
   }
 }

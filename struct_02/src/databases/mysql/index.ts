@@ -6,6 +6,10 @@ import { Database } from "../../classes/Database";
 // Import utils
 import { MySQLUtils } from "./utils";
 
+// Import models
+import { CourseModel } from "./models/course.model";
+import { TeacherModel } from "./models/teacher.model";
+
 // Import settings
 import { AppSettings } from "src/settings";
 
@@ -20,15 +24,16 @@ export type MySQL_DBInformations = {
 }
 
 export class MySQLDatabase extends Database<MySQL_Instances, MySQLUtils> {
+  course!: CourseModel;
+  teacher!: TeacherModel;
+
   constructor() {
     super(new MySQLUtils());
     
     let clusterNames = Object.keys(__settings);
-    let poolCluster = mysql.createPoolCluster();
 
     for(let clusterName of clusterNames) {
-      poolCluster.add(
-        clusterName,
+      this.instances[clusterName as keyof typeof __settings] = mysql.createConnection(
         this.localUtils.getConnectionObj(
           __settings[clusterName as keyof typeof __settings].DOMAIN!,
           __settings[clusterName as keyof typeof __settings].USERNAME!,
@@ -37,6 +42,9 @@ export class MySQLDatabase extends Database<MySQL_Instances, MySQLUtils> {
         )!
       );
     }
+
+    this.course = new CourseModel(this.instances, this.localUtils, __settings.SIMPLE_API.DB);
+    this.teacher = new TeacherModel(this.instances, this.localUtils, __settings.SIMPLE_API.DB);
   }
 
   async connect() {
