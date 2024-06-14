@@ -61,9 +61,9 @@ export class MongoDatabase extends Database<Mongo_Instances, MongoUtils> {
       let dbNames = Object.keys(this.instances);
 
       for(let dbName of dbNames) {
-        console.log(`  ${dbName} DB - status: connecting`);
+        console.log(`  ${dbName} DB - status:`, this.utils.logger.yellow("connecting..."));
         await this.instances[dbName as keyof typeof this.instances].connect();
-        console.log(`  ${dbName} DB - status: connected`);
+        console.log(`  ${dbName} DB - status:`, this.utils.logger.green("connected"));
       }
       
 

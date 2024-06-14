@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "663219d5e2273b1d0c0b019a"
+  },
+  "name": "novel",
+  "value": "novel"
+},
+{
+  "_id": {
+    "$oid": "663219f5e2273b1d0c0b019b"
+  },
+  "name": "light novel",
+  "value": "light-novel"
+},
+{
+  "_id": {
+    "$oid": "66321a33e2273b1d0c0b019c"
+  },
+  "name": "dark novel",
+  "value": "darl-novel"
+},
+{
+  "_id": {
+    "$oid": "66321a6fe2273b1d0c0b019e"
+  },
+  "name": "science fiction",
+  "value": "science-fiction"
+},
+{
+  "_id": {
+    "$oid": "66321a9ce2273b1d0c0b01a0"
+  },
+  "name": "comic",
+  "value": "comic"
+},
+{
+  "_id": {
+    "$oid": "66321ab3e2273b1d0c0b01a1"
+  },
+  "name": "myth",
+  "value": "myth"
+},
+{
+  "_id": {
+    "$oid": "66321ad2e2273b1d0c0b01a2"
+  },
+  "name": "autobiography",
+  "value": "autobiography"
+},
+{
+  "_id": {
+    "$oid": "66321aede2273b1d0c0b01a3"
+  },
+  "name": "nonfiction",
+  "value": "nonfiction"
+},
+{
+  "_id": {
+    "$oid": "66321b3fe2273b1d0c0b01a5"
+  },
+  "name": "detective novel",
+  "value": "detective-novel"
+},
+{
+  "_id": {
+    "$oid": "66321b7ae2273b1d0c0b01a6"
+  },
+  "name": "self help",
+  "value": "self-help"
+}]

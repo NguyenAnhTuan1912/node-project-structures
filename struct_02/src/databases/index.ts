@@ -14,12 +14,12 @@ export class Databases extends Base {
   }
 
   async connect() {
-    console.log("Mongo - status: connecting");
+    console.log("Mongo - status:", this.utils.logger.yellow("connecting..."));
     await this.mongo.connect();
-    console.log("Mongo - status: connected");
+    console.log("Mongo - status:", this.utils.logger.green("connected"));
 
-    console.log("MySQL - status: connecting");
+    console.log("MySQL - status:", this.utils.logger.yellow("connecting..."));
     await this.mysql.connect();
-    console.log("MySQL - status: connected");
+    console.log("MySQL - status:", this.utils.logger.green("connected"));
   }
 }
