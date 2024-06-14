@@ -2,11 +2,40 @@
 
 Đây là cấu trúc module thứ hai, khác với cấu trúc đầu tiên thì cấu trúc này sẽ làm tinh gọn đi nhiều thứ, áp dụng hướng đối tượng nhiều hơn nữa (hầu như là toàn bộ). Giống với cấu trúc đầu tiên thì cấu trúc này cũng áp dụng `Builder` và hơi có `Singleton` Pattern, tương lai có thể áp dụng thêm nhiều Pattern nữa.
 
+## What's in this template?
+Trong template phát triển BE này thì có một số thứ được cài mặc định như là
+- Book Module: chứa tính năng lấy thông tin của sách cũng như là các thông tin khác của sách.
+- Auth Module: chứa tính năng ủy quyền cho người dùng (trong tương lai sẽ có thêm xác thực người dùng), trong module này gồm có các controllers (`token`, `role`, `user`), middlewares (`authorization`) và services (`authorization`). Cùng với nhau thì nó tạo ra một module cung cấp tính năng xác thực và ủy quyền người dùng.
+- Database: hỗ trợ `mysql` và `mongo` (một cách trừu tượng).
+
+## Installation & Testing
+Để có thể chạy thử được template này thì đầu tiên là phải cài đặt một số thứ liên quan
+1. Cài __MySQL__
+   1. Xem hướng dẫn cài cho `Windows` [tại đây](https://www.w3schools.com/mysql/mysql_install_windows.asp)
+   2. Xem hướng dẫn cài cho `Linux` [tại đây](https://www.geeksforgeeks.org/how-to-install-mysql-on-linux/)
+   3. Xem hướng dẫn cài cho `macOS` [tại đây](https://www.geeksforgeeks.org/how-to-install-mysql-on-macos/)
+2. Cài __MongoDB__
+   1. Xem hướng dẫn cài cho `Windows` [tại đây](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/)
+   2. Xem hướng dẫn cài cho `Linux` [tại đây](https://www.mongodb.com/docs/manual/administration/install-on-linux/)
+   3. Xem hướng dẫn cài cho `macOS` [tại đây](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
+3. Cài các dependencies
+```
+npm run install
+```
+4. Import dữ liệu mẫu
+> Import các file dữ liệu mẫu theo từng loại cơ sở dữ liệu.
+5. Khởi động dự án
+```
+npm run dev
+```
+6. Test
+> Import các enpoints trong `postman/endpoints.json` để tiến hành thử và kiểm tra các endpoints.
+
 ## Structure
 Cấu trúc của dự án này sẽ bao gồm các folder gồm file `index.ts` để làm file export tổng theo cấu trúc module. Tuy nhiên thì cốt lõi của tính module là ở `modules`, nơi sẽ thực hiện các nhiệm vụ chính trong app, các modules này chứa các handlers và các handlers này sẽ phụ thuộc vào một số configurations khác trong app để thực hiện các hành động đó.
 
 __Chú thích__:
-- `databases`: folder này dùng để chứa các configs của MongoDB. Với mỗi folder sẽ là một DB, trong mỗi db sẽ có folder `models`, folder này sẽ define một số operations để thao tác với cơ sỡ dữ liệu (output), cũng như là với các dữ liệu vào (input). 
+- `databases`: folder này dùng để chứa các configs của MongoDB. Với mỗi folder sẽ là một DB, trong mỗi db sẽ có folder `models`, folder này sẽ define một số operations để thao tác với cơ sỡ dữ liệu (output), cũng như là với các dữ liệu vào (input). Cái này là mình sẽ không thể biết được là template này dùng loại csdl nào (relational or non-relational), chỉ cần biết là nó expose cho mình các funcion để có thể đọc/thêm/sửa/xóa dữ liệu thôi. *Lưu ý là nên sử dụng csdl theo loại (relational và non-relational) hoặc mục đích như là (cache, search). Không nên dùng nhiều Database Management trong 1 project như là PosgreSQL, MySQL, MSSQL trong cùng 1 project hay CouchDB, Mongo, Aphache trong cùng 1 project*
 - `services`: là các service từ bên ngoài, có thể kể đến như là google, cloudinary. Ngoài ra cũng có thể chứa các service nội bộ.
 - `controllers`: phần này sẽ là nơi xử lý chính các yêu cầu từ client, nó sẽ dùng db, service, utils và có thể là các thành phần khác để xử lý yêu cầu đó.
 - `middlewares`: là các phần mà trong đó nó sẽ tiền xử lý trước các yêu cầu từ người dùng, nói đúng hơn là xử lý trước khi vào tới controllers.
@@ -23,6 +52,10 @@ __Chú thích__:
 ```
 .
 └── src/
+    ├── classes/
+    |   ├── MyServer.ts
+    |   ├── ServerBuilder.ts
+    |   └── Util.ts
     ├── databases/
     │   └── mongodb/
     │       ├── models/
@@ -57,8 +90,6 @@ __Chú thích__:
     │   └── index.ts
     ├── constants.ts
     ├── settings.ts
-    ├── MyServer.ts
-    ├── ServerBuilder.ts
     └── index.ts
 ```
 
@@ -82,4 +113,4 @@ Vẫn đang trong quá trình phát triển và tìm hiểu cấu trúc này, ch
 - Dễ dàng thay đổi, bảo trì hơn.
 
 ### Cons
-- Để dùng rồi đánh giá.
+- Một số hạn chề về cấu trúc code khi mà có một số component nên được tạo thành 1 object đơn thay vì là một lớp đối tượng tĩnh (Static Class).
